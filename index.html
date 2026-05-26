@@ -200,7 +200,7 @@
 
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, min-max(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
         }
 
@@ -297,7 +297,7 @@
             .hero-text h1 { font-size: 2.8rem; }
             .btn-group { justify-content: center; }
             nav { padding: 15px 5%; }
-            .nav-links { display: none; } /* Mobil için sadeleştirme */
+            .nav-links { display: none; }
         }
     </style>
 </head>
@@ -306,7 +306,6 @@
     <div class="bg-grid"></div>
     <div class="glow-sphere"></div>
 
-    <!-- ÜST MENÜ -->
     <nav>
         <div class="logo">DEVSUCX</div>
         <ul class="nav-links">
@@ -317,7 +316,6 @@
         </ul>
     </nav>
 
-    <!-- BÖLÜM 1: ANA SAYFA -->
     <section id="home">
         <div class="hero-container">
             <div class="hero-text">
@@ -332,7 +330,6 @@
         </div>
     </section>
 
-    <!-- BÖLÜM 2: SİSTEM YAPISI -->
     <section id="about">
         <h2 class="section-title">Kapasiteli <span>Altyapımız</span></h2>
         <div class="grid-container">
@@ -351,7 +348,6 @@
         </div>
     </section>
 
-    <!-- BÖLÜM 3: İSTATİSTİKLER -->
     <section id="stats">
         <h2 class="section-title">Canlı <span>Ağ Verileri</span></h2>
         <div class="stats-wrapper">
@@ -370,43 +366,39 @@
         </div>
     </section>
 
-    <!-- BÖLÜM 4: İSTEK MERKEZİ -->
     <section id="request">
         <h2 class="section-title">Merkezi <span>Talep Sistemi</span></h2>
         <div class="form-container class-card glass-card">
             <div class="input-group">
                 <label>Discord Kullanıcı Adın</label>
-                <input type="text" placeholder="Örn: utku_dev">
+                <input type="text" id="discordUser" placeholder="Örn: utku_dev">
             </div>
             <div class="input-group">
                 <label>Kopyalanacak Roblox Oyununun Adı / Linki</label>
-                <input type="text" placeholder="https://roblox.com/games/...">
+                <input type="text" id="robloxGame" placeholder="https://roblox.com/games/...">
             </div>
             <div class="input-group">
                 <label>Özel Notun (Opsiyonel)</label>
-                <textarea rows="4" placeholder="Sadece scriptler lazım, harita önemsiz vb..."></textarea>
+                <textarea id="specialNote" rows="4" placeholder="Sadece scriptler lazım, harita önemsiz vb..."></textarea>
             </div>
-            <button class="btn-premium" style="width: 100%;" onclick="alert('Talebiniz başarıyla kaydedildi! İşlemin hızlanması için Discord sunucumuza gelip bilet açmayı unutmayın.')">Talebi Sunucuya Gönder</button>
+            <button class="btn-premium" style="width: 100%;" onclick="sendToDiscord()">Talebi Sunucuya Gönder</button>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         &copy; 2026 DevSucx Network. Tüm Altyapı Hakları Saklıdır.
     </footer>
 
-    <!-- Aktif Sekme Takip Scripti -->
     <script>
+        // Üst Menü Aktif Takip Sistemi
         window.addEventListener('scroll', () => {
             let sections = document.querySelectorAll('section');
             let navLinks = document.querySelectorAll('.nav-links a');
-            
             sections.forEach(sec => {
                 let top = window.scrollY;
                 let offset = sec.offsetTop - 150;
                 let height = sec.offsetHeight;
                 let id = sec.getAttribute('id');
-                
                 if(top >= offset && top < offset + height) {
                     navLinks.forEach(links => {
                         links.classList.remove('active');
@@ -415,6 +407,52 @@
                 }
             });
         });
+
+        // 🚀 VERİLERİ DİSCONDA GÖNDEREN SİSTEM (WEBHOOK)
+        function sendToDiscord() {
+            // BURAYA SENİN WEBHOOK URL'İN GELECEK
+            const webhookURL = "BURAYA_WEBHOOK_LINKINI_YAPISTIR";
+
+            const user = document.getElementById('discordUser').value;
+            const game = document.getElementById('robloxGame').value;
+            const note = document.getElementById('specialNote').value || "Not bırakılmadı.";
+
+            if (!user || !game) {
+                alert("Lütfen Discord adınızı ve oyun linkini boş bırakmayın!");
+                return;
+            }
+
+            // Havalı Discord Embed Mesajı Tasarımı
+            const payload = {
+                embeds: [{
+                    title: "🎮 YENİ ROBLOX OYUN TALEBİ!",
+                    color: 61951, // Neon mavi renk kodu
+                    fields: [
+                        { name: "👤 Talep Eden (Discord)", value: `\`${user}\``, inline: true },
+                        { name: "🕹️ İstenecek Oyun / Link", value: game, inline: false },
+                        { name: "📝 Özel Not", value: `\`\`\`${note}\`\`\``, inline: false }
+                    ],
+                    footer: { text: "DevSucx Otomatik Talep Sistemi • 2026" },
+                    timestamp: new Date()
+                }]
+            };
+
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(res => {
+                alert("Talebiniz başarıyla 1507746847094214767 ID'li kanala iletildi!");
+                document.getElementById('discordUser').value = "";
+                document.getElementById('robloxGame').value = "";
+                document.getElementById('specialNote').value = "";
+            })
+            .catch(err => {
+                alert("Sistemde bir hata oluştu, Webhook linkinizi kontrol edin.");
+                console.error(err);
+            });
+        }
     </script>
 </body>
 </html>
