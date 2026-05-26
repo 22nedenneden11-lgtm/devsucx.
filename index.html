@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEVSUCX NETWORK | Premium Roblox Hub</title>
+    <style>
+        /* Modern CSS Değişkenleri ve Reset */
+        :root {
+            --bg-color: #0a0a0c;
+            --card-bg: rgba(20, 20, 25, 0.6);
+            --neon-blue: #00f2ff;
+            --neon-purple: #9d4edd;
+            --neon-red: #ff0055;
+            --text-main: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Havalı Arka Plan Efektleri */
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -2;
+        }
+
+        .glow-sphere {
+            position: fixed;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.08) 0%, rgba(157, 78, 221, 0.05) 50%, transparent 100%);
+            top: -20%; left: -10%;
+            z-index: -1;
+            animation: floatGlow 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Üst Menü (Navbar) */
+        nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 20px 8%;
+            background: rgba(10, 10, 12, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #8a8a93;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.6);
+        }
+
+        /* Ortak Sayfa Düzeni */
+        section {
+            min-height: 100vh;
+            padding: 120px 8% 60px 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* ANA SAYFA (HOME) */
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .hero-text { max-width: 600px; }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(0, 242, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #a0a0ab;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+
+        /* Havalı Butonlar */
+        .btn-group { display: flex; gap: 20px; flex-wrap: wrap; }
+
+        .btn-premium {
+            padding: 16px 35px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #000;
+            background: var(--neon-blue);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(0, 242, 255, 0.7);
+        }
+
+        .btn-secondary {
+            padding: 16px 35px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #fff;
+            background: transparent;
+            border: 2px solid var(--neon-purple);
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(157, 78, 221, 0.1);
+            box-shadow: 0 0 25px rgba(157, 78, 221, 0.4);
+            transform: translateY(-3px);
+        }
+
+        /* HAKKIMIZDA VE SİSTEM (ABOUT) */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .section-title span {
+            background: linear-gradient(90deg, #ff0055, #ff00aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, min-max(250px, 1fr));
+            gap: 25px;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 35px;
+            backdrop-filter: blur(10px);
+            transition: 0.4s;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 242, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .glass-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--neon-blue);
+        }
+
+        /* CANLI İSTATİSTİKLER (STATS) */
+        .stats-wrapper {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-box h2 {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-box p {
+            color: #8a8a93;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* İSTEK FORMU (REQUEST) */
+        .form-container {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #8a8a93;
+            font-weight: 600;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        /* Mobil Duyarlılık */
+        @media (max-width: 768px) {
+            .hero-container { flex-direction: column; text-align: center; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .btn-group { justify-content: center; }
+            nav { padding: 15px 5%; }
+            .nav-links { display: none; } /* Mobil için sadeleştirme */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-grid"></div>
+    <div class="glow-sphere"></div>
+
+    <!-- ÜST MENÜ -->
+    <nav>
+        <div class="logo">DEVSUCX</div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Ana Sayfa</a></li>
+            <li><a href="#about">Sistem Yapısı</a></li>
+            <li><a href="#stats">Veriler</a></li>
+            <li><a href="#request">İstek Merkezi</a></li>
+        </ul>
+    </nav>
+
+    <!-- BÖLÜM 1: ANA SAYFA -->
+    <section id="home">
+        <div class="hero-container">
+            <div class="hero-text">
+                <div class="badge">Roblox Operasyon Merkezi</div>
+                <h1>İstediğin Oyunu <br><span style="color: var(--neon-blue);">Biz Çalalım.</span></h1>
+                <p>DevSucx Network'e hoş geldin. Burası sıradan bir topluluk değil; gelişmiş sistemlerimizle Roblox ekosistemindeki dilediğin oyunun assetlerine ve kod yapılarına ulaşmanı sağlayan devasa bir altyapı.</p>
+                <div class="btn-group">
+                    <a href="#request" class="btn-premium">Hemen İstek At</a>
+                    <a href="https://discord.gg/xvw3aY5F44" target="_blank" class="btn-secondary">Discord'a Katıl</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BÖLÜM 2: SİSTEM YAPISI -->
+    <section id="about">
+        <h2 class="section-title">Kapasiteli <span>Altyapımız</span></h2>
+        <div class="grid-container">
+            <div class="glass-card">
+                <h3>01. Oyunu Seç</h3>
+                <p>Gözüne kestirdiğin, scriptlerini veya haritasını merak ettiğin popüler ya da gizli fark etmeksizin herhangi bir Roblox oyununu belirle.</p>
+            </div>
+            <div class="glass-card">
+                <h3>02. Bize Bildir</h3>
+                <p>İster sitemizdeki gelişmiş talep formundan ister Discord sunucumuzdaki özel kanallardan oyunun adını/linkini bize ilet.</p>
+            </div>
+            <div class="glass-card">
+                <h3>03. Dosyayı Teslim Al</h3>
+                <p>Yüksek kapasiteli yazılımlarımız oyunu kopyalayıp (çalıp) tüm assetleriyle birlikte Discord üzerinden sana ulaştırsın.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BÖLÜM 3: İSTATİSTİKLER -->
+    <section id="stats">
+        <h2 class="section-title">Canlı <span>Ağ Verileri</span></h2>
+        <div class="stats-wrapper">
+            <div class="stat-box">
+                <h2>+150</h2>
+                <p>Kopyalanan Oyun</p>
+            </div>
+            <div class="stat-box">
+                <h2>%100</h2>
+                <p>Başarı Oranı</p>
+            </div>
+            <div class="stat-box">
+                <h2>7/24</h2>
+                <p>Aktif Botlar</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BÖLÜM 4: İSTEK MERKEZİ -->
+    <section id="request">
+        <h2 class="section-title">Merkezi <span>Talep Sistemi</span></h2>
+        <div class="form-container class-card glass-card">
+            <div class="input-group">
+                <label>Discord Kullanıcı Adın</label>
+                <input type="text" placeholder="Örn: utku_dev">
+            </div>
+            <div class="input-group">
+                <label>Kopyalanacak Roblox Oyununun Adı / Linki</label>
+                <input type="text" placeholder="https://roblox.com/games/...">
+            </div>
+            <div class="input-group">
+                <label>Özel Notun (Opsiyonel)</label>
+                <textarea rows="4" placeholder="Sadece scriptler lazım, harita önemsiz vb..."></textarea>
+            </div>
+            <button class="btn-premium" style="width: 100%;" onclick="alert('Talebiniz başarıyla kaydedildi! İşlemin hızlanması için Discord sunucumuza gelip bilet açmayı unutmayın.')">Talebi Sunucuya Gönder</button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        &copy; 2026 DevSucx Network. Tüm Altyapı Hakları Saklıdır.
+    </footer>
+
+    <!-- Aktif Sekme Takip Scripti -->
+    <script>
+        window.addEventListener('scroll', () => {
+            let sections = document.querySelectorAll('section');
+            let navLinks = document.querySelectorAll('.nav-links a');
+            
+            sections.forEach(sec => {
+                let top = window.scrollY;
+                let offset = sec.offsetTop - 150;
+                let height = sec.offsetHeight;
+                let id = sec.getAttribute('id');
+                
+                if(top >= offset && top < offset + height) {
+                    navLinks.forEach(links => {
+                        links.classList.remove('active');
+                        document.querySelector('.nav-links a[href*=' + id + ']').classList.add('active');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
